@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotelzinho Pet</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+</head>
+<body>
+  <!-- Barra de Navegação -->
+  <nav>
+    <ul>
+      <li><a href="#home">Home 🏡</a></li>
+      <li><a href="#cadastro">Cadastro & Área do Cliente 📝</a></li>
+      <li><a href="#valores">Valores & Pacotes 💰</a></li>
+      <li><a href="#admin">Área Administrativa 🔧</a></li>
+    </ul>
+  </nav>
+
+  <!-- Seção Home -->
+  <section id="home">
+    <h1>Bem-vindo ao Hotelzinho Pet</h1>
+    <p>Apresentação do hotelzinho.</p>
+    <p>Nossa história &amp; Sobre a Dona.</p>
+    <!-- Instagram integrado (exemplo com embed) -->
+    <div class="instagram">
+      <h3>Instagram</h3>
+      <iframe src="https://www.instagram.com/p/xxxxxxxx/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+    </div>
+    <div class="contato">
+      <h3>Contato</h3>
+      <p>Email: contato@hotelzinopet.com</p>
+      <p>Telefone: (XX) XXXX-XXXX</p>
+    </div>
+  </section>
+
+  <!-- Seção Cadastro & Área do Cliente -->
+  <section id="cadastro">
+    <h2>Cadastro &amp; Área do Cliente</h2>
+    
+    <!-- Formulário de Cadastro (cliente e pet) -->
+    <div id="cadastroForm">
+      <h3>Cadastro</h3>
+      <form id="registerForm">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+        
+        <fieldset>
+          <legend>Dados do Pet</legend>
+          <label for="petNome">Nome do Pet:</label>
+          <input type="text" id="petNome" name="petNome" required>
+          
+          <label for="petTipo">Tipo (ex: Cachorro, Gato):</label>
+          <input type="text" id="petTipo" name="petTipo" required>
+        </fieldset>
+        <button type="submit">Cadastrar</button>
+      </form>
+      <!-- Botão para agendar visita teste -->
+      <button id="visitaTesteBtn">Agendar Visita Teste</button>
+    </div>
+
+    <!-- Área do Cliente (exibida após login) -->
+    <div id="clienteArea" style="display:none;">
+      <h3>Área do Cliente</h3>
+      <p>Bem-vindo, <span id="clienteNome"></span></p>
+      <button id="editarDadosBtn">Editar Dados Pessoais</button>
+      <button id="adicionarPetBtn">Adicionar Novo Pet</button>
+      <button id="historicoHospBtn">Histórico de Hospedagens</button>
+      <button id="lembrarHospBtn">Lembretes de Hospedagem</button>
+      <button id="logoutBtn">Sair</button>
+    </div>
+
+    <!-- Formulário de Login -->
+    <div id="loginForm">
+      <h3>Login</h3>
+      <form id="formLogin">
+        <label for="loginEmail">Email:</label>
+        <input type="email" id="loginEmail" name="loginEmail" required>
+        <label for="loginSenha">Senha:</label>
+        <input type="password" id="loginSenha" name="loginSenha" required>
+        <button type="submit">Entrar</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Seção Valores & Pacotes -->
+  <section id="valores">
+    <h2>Valores &amp; Pacotes</h2>
+    <div id="listaPacotes">
+      <h3>Pacotes e Preços</h3>
+      <ul>
+        <li>Pacote Básico: R$100,00</li>
+        <li>Pacote Premium: R$200,00</li>
+        <li>Pacote VIP: R$300,00</li>
+      </ul>
+    </div>
+    <div id="simulador">
+      <h3>Simulador de Orçamento</h3>
+      <form id="simuladorForm">
+        <label for="dias">Número de dias:</label>
+        <input type="number" id="dias" name="dias" min="1" required>
+        
+        <label for="pacoteEscolhido">Escolha o Pacote:</label>
+        <select id="pacoteEscolhido" name="pacoteEscolhido">
+          <option value="100">Pacote Básico</option>
+          <option value="200">Pacote Premium</option>
+          <option value="300">Pacote VIP</option>
+        </select>
+        <button type="submit">Simular</button>
+      </form>
+      <p id="resultadoSimulador"></p>
+    </div>
+    <div id="cupons">
+      <h3>Aplicar Cupom de Desconto</h3>
+      <form id="cupomForm">
+        <label for="cupom">Cupom:</label>
+        <input type="text" id="cupom" name="cupom">
+        <button type="submit">Aplicar</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Seção Área Administrativa -->
+  <section id="admin">
+    <h2>Área Administrativa (Painel de Controle)</h2>
+    <!-- Login Administrativo -->
+    <div id="adminLogin">
+      <h3>Login Administrativo</h3>
+      <form id="formAdminLogin">
+        <label for="adminEmail">Email:</label>
+        <input type="email" id="adminEmail" name="adminEmail" required>
+        <label for="adminSenha">Senha:</label>
+        <input type="password" id="adminSenha" name="adminSenha" required>
+        <button type="submit">Entrar</button>
+      </form>
+    </div>
+    <!-- Painel de Controle -->
+    <div id="painelAdmin" style="display:none;">
+      <button id="adminLogoutBtn">Sair</button>
+      <h3>Gestão de Clientes, Pets e Reservas</h3>
+      <div id="adminContent">
+        <button id="gerarContratoBtn">Gerar Contrato</button>
+        <button id="criarCupomBtn">Criar Cupom de Desconto</button>
+        <h4>Calendário Inteligente</h4>
+        <div id="calendario">
+          <p>Selecionar dias fechados/abertos.</p>
+          <p>(Lógica para fechar automaticamente quando atingir o limite de cães deve ser implementada.)</p>
+        </div>
+        <h4>Notificações e Agendamentos</h4>
+        <p>Enviar e-mails automáticos e notificações de término de hospedagem.</p>
+        <button id="agendarVisitaTesteBtn">Agendar Visita Teste</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
