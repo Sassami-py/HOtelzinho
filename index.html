@@ -2,167 +2,385 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hotelzinho Pet</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hotelzinho da Luisa</title>
+  <!-- Firebase (usando as versões compat para utilizar as chamadas conhecidas) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  
+  <!-- Estilos CSS -->
+  <style>
+    /* Definindo as cores: verde turquesa claro (#40E0D0), branco e detalhes em preto */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      color: #000;
+    }
+    header {
+      background-color: #40E0D0;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #000;
+    }
+    .menu-icon {
+      cursor: pointer;
+      display: inline-block;
+    }
+    .menu-icon div {
+      width: 25px;
+      height: 3px;
+      background-color: #000;
+      margin: 4px 0;
+    }
+    /* Menu lateral (side navigation) */
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1500;
+      top: 0;
+      right: 0;
+      background-color: #fff;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+    }
+    .sidenav a {
+      padding: 8px 32px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #000;
+      display: block;
+      transition: 0.3s;
+    }
+    .sidenav a:hover {
+      background-color: #ddd;
+    }
+    .sidenav .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 25px;
+      font-size: 36px;
+      text-decoration: none;
+      color: #000;
+    }
+    /* Área principal de conteúdo */
+    .content {
+      padding: 80px 20px 20px 20px; /* deixando espaço para o header fixo */
+    }
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+    /* Rodapé */
+    footer {
+      background-color: #40E0D0;
+      color: #000;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    /* Estilo para formulários */
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    form input, form select, form button, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  </style>
 </head>
 <body>
-  <!-- Barra de Navegação -->
-  <nav>
-    <ul>
-      <li><a href="#home">Home 🏡</a></li>
-      <li><a href="#cadastro">Cadastro & Área do Cliente 📝</a></li>
-      <li><a href="#valores">Valores & Pacotes 💰</a></li>
-      <li><a href="#admin">Área Administrativa 🔧</a></li>
-    </ul>
-  </nav>
-
-  <!-- Seção Home -->
-  <section id="home">
-    <h1>Bem-vindo ao Hotelzinho Pet</h1>
-    <p>Apresentação do hotelzinho.</p>
-    <p>Nossa história &amp; Sobre a Dona.</p>
-    <!-- Instagram integrado (exemplo com embed) -->
-    <div class="instagram">
+  <!-- Cabeçalho com título e menu hamburger -->
+  <header>
+    <h1>Hotelzinho da Luisa</h1>
+    <div class="menu-icon" onclick="openNav()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </header>
+  
+  <!-- Menu lateral -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <!-- As opções do menu redirecionam para as seções -->
+    <a href="#" onclick="showSection('home')">Home</a>
+    <a href="#" onclick="showSection('login')">Entrar na Conta</a>
+    <a href="#" onclick="showSection('cadastro')">Cadastro</a>
+    <a href="#" onclick="showSection('hospedagens')">Hospedagens</a>
+    <a href="#" onclick="showSection('blog')">Blog</a>
+    <a href="#" onclick="showSection('perfil')">Alterar Dados da Conta</a>
+    <a href="#" onclick="showSection('cadastroCachorro')">Cadastrar Novo Cachorro</a>
+    <!-- Caso deseje acessar a área administrativa (oculta para usuários não autorizados) -->
+    <!-- <a href="#" onclick="showSection('admin')">Área Administrativa</a> -->
+  </div>
+  
+  <!-- Conteúdo principal -->
+  <div class="content">
+    <!-- Seção Home: Página principal -->
+    <div id="home" class="section active">
+      <h2>Bem-vindo ao Hotelzinho da Luisa</h2>
+      <p>Somos um hotel exclusivo para cachorros. Aceitamos apenas cães – para os machos, é necessário que sejam castrados e que estejam com as vacinas em dia.</p>
+      <p>Aqui você conhece nossa história, sabe mais sobre a dona e a ideia por trás do Hotelzinho.</p>
+      
       <h3>Instagram</h3>
-      <iframe src="https://www.instagram.com/p/xxxxxxxx/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+      <p>Confira nossas fotos no <a href="https://www.instagram.com" target="_blank">Instagram</a>.</p>
+      
+      <h3>Solicite um Orçamento</h3>
+      <p>Quer testar um dia? Para solicitar um orçamento ou um dia experimental, faça seu cadastro ou login!</p>
+      <button onclick="showSection('cadastro')">Cadastre-se</button>
+      <button onclick="showSection('login')">Entrar</button>
     </div>
-    <div class="contato">
-      <h3>Contato</h3>
-      <p>Email: contato@hotelzinopet.com</p>
-      <p>Telefone: (XX) XXXX-XXXX</p>
-    </div>
-  </section>
-
-  <!-- Seção Cadastro & Área do Cliente -->
-  <section id="cadastro">
-    <h2>Cadastro &amp; Área do Cliente</h2>
     
-    <!-- Formulário de Cadastro (cliente e pet) -->
-    <div id="cadastroForm">
-      <h3>Cadastro</h3>
-      <form id="registerForm">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required>
-        
-        <fieldset>
-          <legend>Dados do Pet</legend>
-          <label for="petNome">Nome do Pet:</label>
-          <input type="text" id="petNome" name="petNome" required>
-          
-          <label for="petTipo">Tipo (ex: Cachorro, Gato):</label>
-          <input type="text" id="petTipo" name="petTipo" required>
-        </fieldset>
+    <!-- Seção Login -->
+    <div id="login" class="section">
+      <h2>Entrar na Conta</h2>
+      <form id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Email" required>
+        <input type="password" id="loginPassword" placeholder="Senha" required>
+        <button type="submit">Entrar</button>
+      </form>
+      <p>Ainda não tem conta? <a href="#" onclick="showSection('cadastro')">Cadastre-se</a></p>
+    </div>
+    
+    <!-- Seção Cadastro (para clientes) -->
+    <div id="cadastro" class="section">
+      <h2>Cadastro de Cliente</h2>
+      <form id="cadastroForm">
+        <input type="text" id="nome" placeholder="Nome" required>
+        <input type="text" id="cpf" placeholder="CPF" required>
+        <input type="number" id="idade" placeholder="Idade" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="senha" placeholder="Senha" required>
+        <input type="password" id="confirmaSenha" placeholder="Confirmar Senha" required>
+        <label><input type="checkbox" onclick="togglePassword('senha')"> Mostrar senha</label>
+        <label><input type="checkbox" onclick="togglePassword('confirmaSenha')"> Mostrar confirmar senha</label>
         <button type="submit">Cadastrar</button>
       </form>
-      <!-- Botão para agendar visita teste -->
-      <button id="visitaTesteBtn">Agendar Visita Teste</button>
     </div>
-
-    <!-- Área do Cliente (exibida após login) -->
-    <div id="clienteArea" style="display:none;">
-      <h3>Área do Cliente</h3>
-      <p>Bem-vindo, <span id="clienteNome"></span></p>
-      <button id="editarDadosBtn">Editar Dados Pessoais</button>
-      <button id="adicionarPetBtn">Adicionar Novo Pet</button>
-      <button id="historicoHospBtn">Histórico de Hospedagens</button>
-      <button id="lembrarHospBtn">Lembretes de Hospedagem</button>
-      <button id="logoutBtn">Sair</button>
-    </div>
-
-    <!-- Formulário de Login -->
-    <div id="loginForm">
-      <h3>Login</h3>
-      <form id="formLogin">
-        <label for="loginEmail">Email:</label>
-        <input type="email" id="loginEmail" name="loginEmail" required>
-        <label for="loginSenha">Senha:</label>
-        <input type="password" id="loginSenha" name="loginSenha" required>
-        <button type="submit">Entrar</button>
+    
+    <!-- Seção Perfil (após login/cadastro) -->
+    <div id="perfil" class="section">
+      <h2>Informações Pessoais</h2>
+      <p>Aqui você pode atualizar suas informações, ver hospedagens anteriores e as próximas agendadas.</p>
+      <form id="perfilForm">
+        <input type="text" id="nomePerfil" placeholder="Nome">
+        <input type="text" id="cpfPerfil" placeholder="CPF">
+        <input type="number" id="idadePerfil" placeholder="Idade">
+        <input type="email" id="emailPerfil" placeholder="Email">
+        <button type="submit">Atualizar Informações</button>
       </form>
     </div>
-  </section>
-
-  <!-- Seção Valores & Pacotes -->
-  <section id="valores">
-    <h2>Valores &amp; Pacotes</h2>
-    <div id="listaPacotes">
-      <h3>Pacotes e Preços</h3>
-      <ul>
-        <li>Pacote Básico: R$100,00</li>
-        <li>Pacote Premium: R$200,00</li>
-        <li>Pacote VIP: R$300,00</li>
-      </ul>
+    
+    <!-- Seção Hospedagens -->
+    <div id="hospedagens" class="section">
+      <h2>Hospedagens</h2>
+      <p>Aqui você poderá ver os preços da hospedagem e solicitar um dia teste.</p>
+      <button onclick="alert('Função de orçamento em desenvolvimento!')">Gerar Orçamento</button>
+      <button onclick="alert('Função de dia teste em desenvolvimento!')">Solicitar Dia Teste</button>
+      <p>Lembre-se: para marcar uma hospedagem, é necessário ter cadastrado seu cachorro.</p>
     </div>
-    <div id="simulador">
-      <h3>Simulador de Orçamento</h3>
-      <form id="simuladorForm">
-        <label for="dias">Número de dias:</label>
-        <input type="number" id="dias" name="dias" min="1" required>
-        
-        <label for="pacoteEscolhido">Escolha o Pacote:</label>
-        <select id="pacoteEscolhido" name="pacoteEscolhido">
-          <option value="100">Pacote Básico</option>
-          <option value="200">Pacote Premium</option>
-          <option value="300">Pacote VIP</option>
+    
+    <!-- Seção Cadastro de Cachorro -->
+    <div id="cadastroCachorro" class="section">
+      <h2>Cadastro de Cachorro</h2>
+      <form id="cadastroCachorroForm">
+        <input type="number" id="idadeCachorro" placeholder="Idade do Cachorro" required>
+        <select id="sexoCachorro" required>
+          <option value="">Selecione o Sexo</option>
+          <option value="M">Macho</option>
+          <option value="F">Fêmea</option>
         </select>
-        <button type="submit">Simular</button>
-      </form>
-      <p id="resultadoSimulador"></p>
-    </div>
-    <div id="cupons">
-      <h3>Aplicar Cupom de Desconto</h3>
-      <form id="cupomForm">
-        <label for="cupom">Cupom:</label>
-        <input type="text" id="cupom" name="cupom">
-        <button type="submit">Aplicar</button>
+        <select id="porteCachorro" required>
+          <option value="">Selecione o Porte</option>
+          <option value="Pequeno">Pequeno</option>
+          <option value="Médio">Médio</option>
+          <option value="Grande">Grande</option>
+        </select>
+        <input type="text" id="racaCachorro" placeholder="Raça" required>
+        <button type="submit">Cadastrar Cachorro</button>
       </form>
     </div>
-  </section>
-
-  <!-- Seção Área Administrativa -->
-  <section id="admin">
-    <h2>Área Administrativa (Painel de Controle)</h2>
-    <!-- Login Administrativo -->
-    <div id="adminLogin">
-      <h3>Login Administrativo</h3>
-      <form id="formAdminLogin">
-        <label for="adminEmail">Email:</label>
-        <input type="email" id="adminEmail" name="adminEmail" required>
-        <label for="adminSenha">Senha:</label>
-        <input type="password" id="adminSenha" name="adminSenha" required>
-        <button type="submit">Entrar</button>
-      </form>
-    </div>
-    <!-- Painel de Controle -->
-    <div id="painelAdmin" style="display:none;">
-      <button id="adminLogoutBtn">Sair</button>
-      <h3>Gestão de Clientes, Pets e Reservas</h3>
-      <div id="adminContent">
-        <button id="gerarContratoBtn">Gerar Contrato</button>
-        <button id="criarCupomBtn">Criar Cupom de Desconto</button>
-        <h4>Calendário Inteligente</h4>
-        <div id="calendario">
-          <p>Selecionar dias fechados/abertos.</p>
-          <p>(Lógica para fechar automaticamente quando atingir o limite de cães deve ser implementada.)</p>
-        </div>
-        <h4>Notificações e Agendamentos</h4>
-        <p>Enviar e-mails automáticos e notificações de término de hospedagem.</p>
-        <button id="agendarVisitaTesteBtn">Agendar Visita Teste</button>
+    
+    <!-- Seção Blog -->
+    <div id="blog" class="section">
+      <h2>Blog e Comentários</h2>
+      <p>Aqui os donos de cachorros podem deixar comentários e acompanhar os anúncios do Hotelzinho.</p>
+      <div id="blogPosts">
+        <!-- Posts do blog – implementação futura -->
+        <p>Em breve...</p>
       </div>
+      <form id="comentarioForm">
+        <textarea id="comentario" placeholder="Deixe seu comentário..." required></textarea>
+        <button type="submit">Enviar Comentário</button>
+      </form>
     </div>
-  </section>
-
-  <script src="script.js"></script>
+    
+    <!-- Seção Administrativa (somente para contas autorizadas) -->
+    <div id="admin" class="section">
+      <h2>Área Administrativa</h2>
+      <p>Aqui é possível gerenciar hospedagens, desativar datas, definir dias de folga, limitar a quantidade de cães, alterar valores, gerar cupons e acompanhar métricas.</p>
+      <!-- Funcionalidades administrativas serão implementadas conforme as necessidades -->
+    </div>
+  </div>
+  
+  <!-- Rodapé -->
+  <footer>
+    <p>Email: contato@hotelzinholuisa.com | Telefone: (00) 0000-0000 | Instagram: @hotelzinholuisa</p>
+  </footer>
+  
+  <!-- Configuração do Firebase e inicialização -->
+  <script>
+    // Substitua os valores abaixo com sua configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    // Inicializa o Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
+  
+  <!-- Scripts de navegação e manipulação de formulários -->
+  <script>
+    // Abre o menu lateral
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+    // Fecha o menu lateral
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+    // Mostra a seção desejada e oculta as demais
+    function showSection(sectionId) {
+      const sections = document.getElementsByClassName("section");
+      for (let i = 0; i < sections.length; i++) {
+        sections[i].classList.remove("active");
+      }
+      document.getElementById(sectionId).classList.add("active");
+      closeNav();
+    }
+    // Alterna o tipo do campo de senha entre "password" e "text"
+    function togglePassword(fieldId) {
+      const field = document.getElementById(fieldId);
+      field.type = (field.type === "password") ? "text" : "password";
+    }
+    
+    // Processamento do formulário de login
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      
+      auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          alert("Login realizado com sucesso!");
+          showSection("perfil");
+        })
+        .catch((error) => {
+          alert("Erro no login: " + error.message);
+        });
+    });
+    
+    // Processamento do formulário de cadastro de cliente
+    document.getElementById("cadastroForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const nome = document.getElementById("nome").value;
+      const cpf = document.getElementById("cpf").value;
+      const idade = document.getElementById("idade").value;
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+      const confirmaSenha = document.getElementById("confirmaSenha").value;
+      
+      if(senha !== confirmaSenha) {
+        alert("As senhas não conferem!");
+        return;
+      }
+      
+      auth.createUserWithEmailAndPassword(email, senha)
+        .then((userCredential) => {
+          // Armazena dados adicionais do usuário no Firestore
+          return db.collection("usuarios").doc(userCredential.user.uid).set({
+            nome: nome,
+            cpf: cpf,
+            idade: idade,
+            email: email
+          });
+        })
+        .then(() => {
+          alert("Cadastro realizado com sucesso!");
+          showSection("perfil");
+        })
+        .catch((error) => {
+          alert("Erro no cadastro: " + error.message);
+        });
+    });
+    
+    // Processamento do formulário de cadastro de cachorro
+    document.getElementById("cadastroCachorroForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const idadeCachorro = document.getElementById("idadeCachorro").value;
+      const sexoCachorro = document.getElementById("sexoCachorro").value;
+      const porteCachorro = document.getElementById("porteCachorro").value;
+      const racaCachorro = document.getElementById("racaCachorro").value;
+      
+      // Associa o cachorro ao usuário atualmente logado
+      const user = auth.currentUser;
+      if(user) {
+        db.collection("usuarios").doc(user.uid).collection("cachorros").add({
+          idade: idadeCachorro,
+          sexo: sexoCachorro,
+          porte: porteCachorro,
+          raca: racaCachorro
+        })
+        .then(() => {
+          alert("Cachorro cadastrado com sucesso!");
+        })
+        .catch((error) => {
+          alert("Erro ao cadastrar cachorro: " + error.message);
+        });
+      } else {
+        alert("Por favor, faça login para cadastrar um cachorro.");
+      }
+    });
+    
+    // Processamento do formulário de comentário no blog (placeholder)
+    document.getElementById("comentarioForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const comentario = document.getElementById("comentario").value;
+      // Aqui você pode implementar o salvamento do comentário no Firestore
+      alert("Comentário enviado: " + comentario);
+      document.getElementById("comentario").value = "";
+    });
+  </script>
 </body>
 </html>
