@@ -1,63 +1,122 @@
-/* styles.css */
+/* style.css */
 
+/* Reset e estilos gerais */
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+  background-color: #fff;
+  color: #000;
 }
 
-nav {
-  background-color: #333;
-  padding: 10px;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-around;
-  margin: 0;
-  padding: 0;
-}
-
-nav ul li a {
+/* Cabeçalho */
+header {
+  background-color: #40E0D0; /* Verde turquesa bem claro */
   color: #fff;
-  text-decoration: none;
-}
-
-section {
-  padding: 20px;
-  margin: 10px;
-  border-bottom: 1px solid #ccc;
-}
-
-form {
   display: flex;
-  flex-direction: column;
-  max-width: 400px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
 }
 
-form label {
-  margin-top: 10px;
+header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #000; /* Detalhes em preto para o título */
+}
+
+/* Ícone do menu (hamburger) */
+.menu-icon {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.menu-icon div {
+  width: 25px;
+  height: 3px;
+  background-color: #000;
+  margin: 4px 0;
+}
+
+/* Menu lateral (side navigation) */
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1500;
+  top: 0;
+  right: 0;
+  background-color: #fff;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+}
+
+.sidenav a {
+  padding: 8px 32px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #000;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  background-color: #ddd;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 36px;
+  text-decoration: none;
+  color: #000;
+}
+
+/* Área principal de conteúdo */
+.content {
+  padding: 80px 20px 20px; /* Espaço para o cabeçalho fixo */
+}
+
+/* Seções (páginas) */
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+/* Estilo dos formulários */
+form {
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 form input,
 form select,
-form button {
-  margin-top: 5px;
-  padding: 8px;
-}
-
-button {
-  cursor: pointer;
-  margin-top: 15px;
-}
-
-fieldset {
-  border: 1px solid #ccc;
+form button,
+form textarea {
+  width: 100%;
   padding: 10px;
-  margin-top: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-legend {
-  font-weight: bold;
+/* Rodapé */
+footer {
+  background-color: #40E0D0;
+  color: #000;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
