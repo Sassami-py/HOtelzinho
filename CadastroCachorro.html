@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cadastrar Cachorro - Hotelzinho da Luisa</title>
+  
+  <!-- Link para o arquivo CSS externo -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Firebase (versões compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <!-- Cabeçalho com título e menu hamburger -->
+  <header>
+    <h1>Hotelzinho da Luisa</h1>
+    <div class="menu-icon" onclick="openNav()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </header>
+  
+  <!-- Menu lateral (side navigation) -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="index.html">Home</a>
+    <a href="login.html">Entrar na Conta</a>
+    <a href="cadastro.html">Cadastro</a>
+    <a href="hospedagens.html">Hospedagens</a>
+    <a href="blog.html">Blog</a>
+    <a href="perfil.html">Perfil</a>
+    <a href="cadastroCachorro.html">Cadastrar Novo Cachorro</a>
+  </div>
+  
+  <!-- Conteúdo principal -->
+  <div class="content">
+    <section id="cadastroCachorro" class="section active">
+      <h2>Cadastrar Cachorro</h2>
+      <form id="cadastroCachorroForm">
+        <input type="number" id="idadeCachorro" placeholder="Idade do Cachorro" required>
+        <select id="sexoCachorro" required>
+          <option value="">Selecione o Sexo</option>
+          <option value="M">Macho</option>
+          <option value="F">Fêmea</option>
+        </select>
+        <select id="porteCachorro" required>
+          <option value="">Selecione o Porte</option>
+          <option value="Pequeno">Pequeno</option>
+          <option value="Médio">Médio</option>
+          <option value="Grande">Grande</option>
+        </select>
+        <input type="text" id="racaCachorro" placeholder="Raça" required>
+        <button type="submit">Cadastrar Cachorro</button>
+      </form>
+    </section>
+  </div>
+  
+  <!-- Rodapé com informações atualizadas -->
+  <footer>
+    <p>Email: hotelzinh0007@gmailo.com | Telefone: (61) 9 9243-7520 | Instagram: @h0telzinh0_</p>
+  </footer>
+  
+  <!-- Inclusão dos scripts JavaScript externos -->
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
