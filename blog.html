@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog - Hotelzinho da Luisa</title>
+  
+  <!-- Link para o arquivo CSS externo -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Firebase (versões compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <!-- Cabeçalho com título e menu hamburger -->
+  <header>
+    <h1>Hotelzinho da Luisa</h1>
+    <div class="menu-icon" onclick="openNav()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </header>
+  
+  <!-- Menu lateral (side navigation) -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="index.html">Home</a>
+    <a href="login.html">Entrar na Conta</a>
+    <a href="cadastro.html">Cadastro</a>
+    <a href="hospedagens.html">Hospedagens</a>
+    <a href="blog.html">Blog</a>
+    <a href="perfil.html">Perfil</a>
+    <a href="cadastroCachorro.html">Cadastrar Novo Cachorro</a>
+  </div>
+  
+  <!-- Conteúdo principal -->
+  <div class="content">
+    <section id="blog" class="section active">
+      <h2>Blog e Comentários</h2>
+      <p>Aqui os donos de cachorros podem acompanhar novidades e deixar seus comentários.</p>
+      
+      <!-- Área onde os posts do blog serão exibidos (pode ser populada via JavaScript com dados do Firebase) -->
+      <div id="blogPosts">
+        <p>Em breve, os posts do blog aparecerão aqui...</p>
+      </div>
+      
+      <!-- Formulário para envio de comentários -->
+      <form id="comentarioForm">
+        <textarea id="comentario" placeholder="Deixe seu comentário..." required></textarea>
+        <button type="submit">Enviar Comentário</button>
+      </form>
+    </section>
+  </div>
+  
+  <!-- Rodapé com informações atualizadas -->
+  <footer>
+    <p>Email: hotelzinh0007@gmailo.com | Telefone: (61) 9 9243-7520 | Instagram: @h0telzinh0_</p>
+  </footer>
+  
+  <!-- Inclusão dos scripts JavaScript externos -->
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
