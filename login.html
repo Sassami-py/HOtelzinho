@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login - Hotelzinho da Luisa</title>
+  
+  <!-- Link para o arquivo CSS externo -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Firebase (versões compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <!-- Cabeçalho com título e menu hamburger -->
+  <header>
+    <h1>Hotelzinho da Luisa</h1>
+    <div class="menu-icon" onclick="openNav()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </header>
+  
+  <!-- Menu lateral (side navigation) -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="index.html">Home</a>
+    <a href="login.html">Entrar na Conta</a>
+    <a href="cadastro.html">Cadastro</a>
+    <a href="hospedagens.html">Hospedagens</a>
+    <a href="blog.html">Blog</a>
+    <a href="perfil.html">Alterar Dados da Conta</a>
+    <a href="cadastroCachorro.html">Cadastrar Novo Cachorro</a>
+  </div>
+  
+  <!-- Conteúdo principal -->
+  <div class="content">
+    <section id="login" class="section active">
+      <h2>Entrar na Conta</h2>
+      <!-- Formulário tradicional com email/senha -->
+      <form id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Email" required>
+        <input type="password" id="loginPassword" placeholder="Senha" required>
+        <button type="submit">Entrar</button>
+      </form>
+      <!-- Botão para login com a conta do Google -->
+      <button id="googleSignInBtn" onclick="googleSignIn()">Entrar com Google</button>
+      <p>Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se aqui</a></p>
+    </section>
+  </div>
+  
+  <!-- Rodapé -->
+  <footer>
+    <p>Email: contato@hotelzinholuisa.com | Telefone: (00) 0000-0000 | Instagram: @hotelzinholuisa</p>
+  </footer>
+  
+  <!-- Inclusão dos scripts JavaScript externos -->
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
