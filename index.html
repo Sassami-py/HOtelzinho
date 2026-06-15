@@ -3,20 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hotelzinho da Luisa</title>
+  <title>Hotelzinho Pet da Luísa</title>
   
-  <!-- Link para o arquivo CSS externo -->
   <link rel="stylesheet" href="css/style.css">
   
-  <!-- Firebase (versões compat) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
-  <!-- Cabeçalho com título e menu hamburger -->
+
   <header>
-    <h1>Hotelzinho da Luisa</h1>
+    <div class="logo-area">
+      <h1>Hotelzinho Pet da Luísa</h1>
+    </div>
+
+    <nav class="nav-desktop">
+      <a href="index.html">Sobre nós</a>
+      <a href="blog.html">Blog</a>
+      <a href="https://www.instagram.com/h0telzinh0_" target="_blank">Instagram</a>
+      <a href="#contato">Contatos</a>
+      <a href="login.html" class="btn-login-topo">Log-in</a>
+    </nav>
+
     <div class="menu-icon" onclick="openNav()">
       <div></div>
       <div></div>
@@ -24,52 +33,60 @@
     </div>
   </header>
   
-  <!-- Menu lateral (side navigation) -->
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="index.html">Home</a>
-    <a href="login.html">Entrar na Conta</a>
-    <a href="cadastro.html">Cadastro</a>
-    <a href="hospedagens.html">Hospedagens</a>
+    <a href="index.html" onclick="closeNav()">Sobre nós</a>
     <a href="blog.html">Blog</a>
-    <a href="perfil.html">Alterar Dados da Conta</a>
-    <a href="cadastroCachorro.html">Cadastrar Novo Cachorro</a>
-    <!-- <a href="admin.html">Área Administrativa</a> -->
+    <a href="https://www.instagram.com/h0telzinh0_" target="_blank">Instagram</a>
+    <a href="hospedagens.html">Hospedagens</a>
+    <a href="perfil.html">Dados da Conta</a>
+    <a href="cadastroCachorro.html">Cadastrar Cachorro</a>
+    <a href="login.html">Log-in / Sair</a>
   </div>
   
-  <!-- Conteúdo principal -->
   <div class="content">
-    <!-- Seção Home -->
-    <section id="home" class="section active">
-      <h2>🐾 Bem-vindo ao Hotelzinho da Luisa! 🏡🐶</h2>
-      <p>Aqui, seu doguinho encontra um ambiente seguro, aconchegante e cheio de carinho! Nosso espaço foi pensado para oferecer bem-estar e diversão enquanto você viaja ou trabalha.</p>
-      <p>🏡 O que oferecemos:</p>
-      <p>✅ Ambiente familiar e acolhedor – Seu pet será tratado como parte da família!
-✅ Espaço ao ar livre – Amplo jardim para correr, brincar e relaxar.
-✅ Atividades diárias – Rotina de brincadeiras e socialização.
-✅ Supervisão responsável – Somos apaixonados por cães e cuidamos com toda atenção!
-✅ Banho opcional – Com muito carinho e conforto para seu peludo.
-✅ Atualizações constantes – Mandamos fotos e vídeos para você acompanhar a estadia do seu pet.</p>
-      <p>🕒 Horários de atendimento:</p>
-      <p>Check-in e Check-out (segunda a sexta): Das 15h às 19h (casos especiais podem ser combinados).</p>
-      <p>Check-in e Check-out (sábado e domingo): Horário mais flexível, conforme disponibilidade.</p>
+    
+    <section class="hero-section">
+      <div class="hero-text">
+        <h2>Seu pet de férias enquanto você viaja!</h2>
+        <p class="sub-hero">O ambiente perfeito com amor, carinho e segurança que o seu melhor amigo merece.</p>
+        <a href="https://wa.me/5561992437520" target="_blank" class="btn-contato">
+          💬 Entre em contato
+        </a>
+      </div>
+    </section>
 
-      <h3>Instagram</h3>
-      <p>Confira nossas fotos no <a href="https://www.instagram.com" target="_blank">Instagram</a>.</p>
+    <section id="sobre" class="section">
+      <h2>🐾 Bem-vindo ao Hotelzinho da Luísa! 🏡🐶</h2>
+      <p>Aqui, seu doguinho encontra um ambiente seguro, aconchegante e cheio de carinho! Nosso espaço foi pensado para oferecer bem-estar e diversão enquanto você viaja ou trabalha.</p>
       
-      <h3>Solicite um Orçamento</h3>
-      <p>Quer testar um dia? Para solicitar um orçamento ou um dia experimental, faça seu cadastro ou login!</p>
-      <button onclick="window.location.href='cadastro.html'">Cadastre-se</button>
-      <button onclick="window.location.href='login.html'">Entrar</button>
+      <h3>🏡 O que oferecemos:</h3>
+      <ul class="vantagens-list">
+        <li><strong>Ambiente familiar e acolhedor</strong> – Seu pet será tratado como parte da família!</li>
+        <li><strong>Espaço ao ar livre</strong> – Amplo jardim para correr, brincar e relaxar.</li>
+        <li><strong>Atividades diárias</strong> – Rotina de brincadeiras e socialização.</li>
+        <li><strong>Supervisão responsável</strong> – Somos apaixonados por cães e cuidamos com toda atenção!</li>
+        <li><strong>Banho opcional</strong> – Com muito carinho e conforto para seu peludo.</li>
+        <li><strong>Atualizações constantes</strong> – Mandamos fotos e vídeos para você acompanhar tudo.</li>
+      </ul>
+      
+      <h3>🕒 Horários de atendimento:</h3>
+      <p><strong>Check-in e Check-out (Segunda a Sexta):</strong> Das 15h às 19h (casos especiais podem ser combinados).</p>
+      <p><strong>Check-in e Check-out (Sábado e Domingo):</strong> Horário flexível, conforme disponibilidade combinada prévia.</p>
+      
+      <h3>✨ Solicite um Orçamento</h3>
+      <p>Quer testar um dia? Para solicitar um orçamento ou agendar um dia experimental, faça seu cadastro rápido em nosso sistema!</p>
+      <div class="action-buttons">
+        <button onclick="window.location.href='cadastro.html'">Cadastre-se</button>
+        <button onclick="window.location.href='login.html'" class="btn-secundario">Entrar na Conta</button>
+      </div>
     </section>
   </div>
   
-  <!-- Rodapé -->
-  <footer>
-    <p>Email: hotelzinh0007@gmailo.com | Telefone: (61) 9 9243-7520 | Instagram: @h0telzinh0_</p>
+  <footer id="contato">
+    <p>📧 Email: hotelzinh0007@gmail.com | 📞 Telefone: (61) 99243-7520 | 📸 Instagram: <a href="https://www.instagram.com/h0telzinh0_" target="_blank">@h0telzinh0_</a></p>
   </footer>
   
-  <!-- Inclusão dos scripts JavaScript externos -->
   <script src="js/firebase-config.js"></script>
   <script src="js/app.js"></script>
 </body>
