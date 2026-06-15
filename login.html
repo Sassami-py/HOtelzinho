@@ -3,20 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login - Hotelzinho da Luisa</title>
-  
-  <!-- Link para o arquivo CSS externo -->
+  <title>Login - Hotelzinho Pet da Luísa</title>
   <link rel="stylesheet" href="css/style.css">
   
-  <!-- Firebase (versões compat) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
-  <!-- Cabeçalho com título e menu hamburger -->
+
   <header>
-    <h1>Hotelzinho da Luisa</h1>
+    <div class="logo-area">
+      <h1>Hotelzinho Pet da Luísa</h1>
+    </div>
+    <nav class="nav-desktop">
+      <a href="index.html">Sobre nós</a>
+      <a href="blog.html">Blog</a>
+      <a href="https://www.instagram.com/h0telzinh0_" target="_blank">Instagram</a>
+      <a href="#contato">Contatos</a>
+      <a href="login.html" class="btn-login-topo">Log-in</a>
+    </nav>
     <div class="menu-icon" onclick="openNav()">
       <div></div>
       <div></div>
@@ -24,40 +30,40 @@
     </div>
   </header>
   
-  <!-- Menu lateral (side navigation) -->
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="index.html">Home</a>
-    <a href="login.html">Entrar na Conta</a>
-    <a href="cadastro.html">Cadastro</a>
-    <a href="hospedagens.html">Hospedagens</a>
+    <a href="index.html" onclick="closeNav()">Sobre nós</a>
     <a href="blog.html">Blog</a>
-    <a href="perfil.html">Alterar Dados da Conta</a>
-    <a href="cadastroCachorro.html">Cadastrar Novo Cachorro</a>
+    <a href="https://www.instagram.com/h0telzinh0_" target="_blank">Instagram</a>
+    <a href="hospedagens.html">Hospedagens</a>
+    <a href="perfil.html">Dados da Conta</a>
+    <a href="cadastroCachorro.html">Cadastrar Cachorro</a>
+    <a href="login.html">Log-in / Sair</a>
   </div>
   
-  <!-- Conteúdo principal -->
   <div class="content">
-    <section id="login" class="section active">
-      <h2>Entrar na Conta</h2>
-      <!-- Formulário tradicional com email/senha -->
+    <section id="login" class="section">
+      <h2>🔑 Acessar sua Conta</h2>
+      <p>Entre para acompanhar as novidades e solicitar serviços.</p>
+      
       <form id="loginForm">
         <input type="email" id="loginEmail" placeholder="Email" required>
         <input type="password" id="loginPassword" placeholder="Senha" required>
         <button type="submit">Entrar</button>
+        
+        <button type="button" id="googleSignInBtn" onclick="googleSignIn()" class="btn-google">
+          🌐 Entrar com o Google
+        </button>
       </form>
-      <!-- Botão para login com a conta do Google -->
-      <button id="googleSignInBtn" onclick="googleSignIn()">Entrar com Google</button>
-      <p>Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se aqui</a></p>
+      
+      <p style="text-align: center; margin-top: 15px;">Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se aqui</a></p>
     </section>
   </div>
   
-  <!-- Rodapé -->
-  <footer>
-     <p>Email: hotelzinh0007@gmailo.com | Telefone: (61) 9 9243-7520 | Instagram: @h0telzinh0_</p>
+  <footer id="contato">
+    <p>📧 Email: hotelzinh0007@gmail.com | 📞 Telefone: (61) 9 9243-7520 | 📸 Instagram: <a href="https://www.instagram.com/h0telzinh0_" target="_blank">@h0telzinh0_</a></p>
   </footer>
   
-  <!-- Inclusão dos scripts JavaScript externos -->
   <script src="js/firebase-config.js"></script>
   <script src="js/app.js"></script>
 </body>
