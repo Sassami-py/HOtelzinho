@@ -1,14 +1,4 @@
-/*
-  script.js
-  Arquivo compartilhado para gerenciar funcionalidades do site Hotelzinho da Luisa.
-  Inclua-o em cada página, por exemplo:
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-  <script src="script.js"></script>
-*/
-
-// Configuração do Firebase – substitua os placeholders pelos dados do seu projeto
+// Configuração do Firebase
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_AUTH_DOMAIN",
@@ -22,13 +12,14 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Funções para o menu mobile/hamburger (se presente em todas as páginas)
+// Funções corrigidas e dinâmicas para controle do menu mobile
 function openNav() {
   const sidenav = document.getElementById("mySidenav");
   if (sidenav) {
-    sidenav.style.width = "250px";
+    sidenav.style.width = "280px"; /* Ajustado o tamanho ideal */
   }
 }
+
 function closeNav() {
   const sidenav = document.getElementById("mySidenav");
   if (sidenav) {
@@ -36,7 +27,18 @@ function closeNav() {
   }
 }
 
-// Função para alternar a exibição da senha
+// Fechar menu automaticamente ao clicar fora dele (Melhoria de Usabilidade)
+document.addEventListener("click", function(event) {
+  const sidenav = document.getElementById("mySidenav");
+  const menuIcon = document.querySelector(".menu-icon");
+  if (sidenav && sidenav.style.width === "280px") {
+    if (!sidenav.contains(event.target) && !menuIcon.contains(event.target)) {
+      closeNav();
+    }
+  }
+});
+
+// Alternar exibição de campos de senha
 function togglePassword(fieldId) {
   const field = document.getElementById(fieldId);
   if (field) {
@@ -44,7 +46,7 @@ function togglePassword(fieldId) {
   }
 }
 
-// Processamento do formulário de login (ex.: login.html)
+// Login
 const loginForm = document.getElementById("loginForm");
 if (loginForm) {
   loginForm.addEventListener("submit", function(e) {
@@ -54,8 +56,7 @@ if (loginForm) {
 
     auth.signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        alert("Login realizado com sucesso!");
-        // Redireciona para a página de perfil ou outra página desejada
+        alert("Login realizado com sucesso! Bem-vindo(a) de volta 🐾");
         window.location.href = "perfil.html";
       })
       .catch((error) => {
@@ -64,7 +65,7 @@ if (loginForm) {
   });
 }
 
-// Processamento do formulário de cadastro de cliente (ex.: cadastro.html)
+// Cadastro Geral
 const cadastroForm = document.getElementById("cadastroForm");
 if (cadastroForm) {
   cadastroForm.addEventListener("submit", function(e) {
@@ -83,7 +84,6 @@ if (cadastroForm) {
 
     auth.createUserWithEmailAndPassword(email, senha)
       .then((userCredential) => {
-        // Salva dados adicionais do usuário no Firestore
         return db.collection("usuarios").doc(userCredential.user.uid).set({
           nome: nome,
           cpf: cpf,
@@ -92,8 +92,8 @@ if (cadastroForm) {
         });
       })
       .then(() => {
-        alert("Cadastro realizado com sucesso!");
-        window.location.href = "perfil.html";
+        alert("Cadastro realizado com sucesso! Vamos cadastrar seu pet? 🐶");
+        window.location.href = "cadastroCachorro.html"; /* Sugestão de fluxo direto para o pet */
       })
       .catch((error) => {
         alert("Erro no cadastro: " + error.message);
@@ -101,7 +101,7 @@ if (cadastroForm) {
   });
 }
 
-// Processamento do formulário de atualização de perfil (ex.: perfil.html)
+// Atualização de Perfil
 const perfilForm = document.getElementById("perfilForm");
 if (perfilForm) {
   perfilForm.addEventListener("submit", function(e) {
@@ -123,7 +123,7 @@ if (perfilForm) {
       email: email
     })
     .then(() => {
-      alert("Informações atualizadas com sucesso!");
+      alert("Informações atualizadas com sucesso! ✨");
     })
     .catch((error) => {
       alert("Erro ao atualizar informações: " + error.message);
@@ -131,7 +131,7 @@ if (perfilForm) {
   });
 }
 
-// Processamento do formulário de cadastro de cachorro (ex.: cadastroCachorro.html)
+// Cadastro do Cachorro
 const cadastroCachorroForm = document.getElementById("cadastroCachorroForm");
 if (cadastroCachorroForm) {
   cadastroCachorroForm.addEventListener("submit", function(e) {
@@ -150,8 +150,8 @@ if (cadastroCachorroForm) {
         raca: racaCachorro
       })
       .then(() => {
-        alert("Cachorro cadastrado com sucesso!");
-        // Redirecione para outra página, se necessário
+        alert("Doguinho cadastrado com sucesso! Já pode planejar a sua viagem ✈️🐾");
+        window.location.href = "index.html";
       })
       .catch((error) => {
         alert("Erro ao cadastrar cachorro: " + error.message);
@@ -162,7 +162,7 @@ if (cadastroCachorroForm) {
   });
 }
 
-// Processamento do formulário de comentário no blog (ex.: blog.html)
+// Comentários do Blog
 const comentarioForm = document.getElementById("comentarioForm");
 if (comentarioForm) {
   comentarioForm.addEventListener("submit", function(e) {
@@ -171,14 +171,19 @@ if (comentarioForm) {
     db.collection("comentarios").add({
       comentario: comentario,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      // Se necessário, inclua informações adicionais, como ID do usuário
     })
     .then(() => {
-      alert("Comentário enviado com sucesso!");
+      alert("Obrigado pelo seu comentário! Ele já foi publicado. 💬");
       document.getElementById("comentario").value = "";
     })
     .catch((error) => {
       alert("Erro ao enviar comentário: " + error.message);
     });
   });
+}
+
+// Função placeholder para Login/Cadastro Google
+function googleSignIn() {
+  alert("Integração do Google Sign-In em andamento...");
+  // Insira sua lógica de provedor Google (firebase.auth.GoogleAuthProvider) aqui futuramente.
 }
